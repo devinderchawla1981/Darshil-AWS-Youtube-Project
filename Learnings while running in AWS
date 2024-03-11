@@ -1,0 +1,31 @@
+1)When you open Glue , change region to us-east1 otherwise , you will face Network error as S3 bucket is also in us-east1.
+
+2)When Glue catalog table is queried in Athena then we get below error
+No output location provided. An output location is required either through the Workgroup result configuration setting or as an API input.
+
+Create a separate s3 bucket and specify s3 bucket location to fix this error.
+
+3)When you query then we are getting error as we need to transform json using LAMBDA.
+
+4) Unable to import module 'lambda_function': No module named 'awswrangler'"
+Add a Layer
+AWSDataWrangler-Python3.8 is not still available - I replaced it with AWSSDKPandas-Python3.8 version 1
+
+5) 3:21:48.140Z b1cbef2f-d6d2-401e-8234-1ef4c6a4b37d Task timed out after 3.16 seconds"
+In ConfigurationGeneral Configuration increase timeout
+
+6) "errorMessage": "An error occurred (AccessDeniedException) when calling the GetTable operation: User: arn:aws:sts::283731339969:assumed-role/de-on-youtube-raw-lambdarole-darshil/de-on-youtube-raw-useast1-lambda-json-parquet is not authorized to perform: glue:GetTable on resource: arn:aws:glue:us-east-1:283731339969:catalog because no identity-based policy allows the glue:GetTable action",
+  "errorType": "AccessDeniedException",
+
+
+In Lambda Role Add Permission
+AWSGlueServiceRole
+
+7)Killed error 
+Increase Memory  to 500MB
+
+8) "errorMessage": "An error occurred (EntityNotFoundException) when calling the CreateTable operation: Database db_youtube_cleaned_darshil not found.",
+Create db_youtube_cleaned_darshil  database in Glue
+
+9) TYPE_MISMATCH: Unable to read parquet data. This is most likely caused by a mismatch between the parquet and metastore schema
+Above error came when edit schema was done and id field was changed from string to BigInt
